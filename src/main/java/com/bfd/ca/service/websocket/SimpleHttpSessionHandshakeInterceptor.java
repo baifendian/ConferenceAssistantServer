@@ -18,17 +18,6 @@ import java.util.Map;
 public class SimpleHttpSessionHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-        if(request instanceof ServletServerHttpRequest){
-            ServletServerHttpRequest req = (ServletServerHttpRequest)request;
-            HttpSession session = req.getServletRequest().getSession(false);
-            if(session != null){
-                User user = (User) session.getAttribute("user");
-                if(user!=null)
-                    attributes.put(Constant.WEBSOCKET_USER_NAME,user.getName());
-                else
-                    attributes.put(Constant.WEBSOCKET_USER_NAME,"test");
-            }
-        }
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
 }

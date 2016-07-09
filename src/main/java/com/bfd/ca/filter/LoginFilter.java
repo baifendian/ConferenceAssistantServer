@@ -31,7 +31,7 @@ public class LoginFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", "*");
         String token = request.getHeader("token");
         String reqPath = request.getServletPath();
-        if(reqPath.startsWith("/static")) {
+        if (reqPath.startsWith("/static") || reqPath.startsWith("/socket")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

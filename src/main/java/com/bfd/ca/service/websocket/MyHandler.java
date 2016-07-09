@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bfd.ca.entity.Meeting;
 import com.bfd.ca.entity.User;
 import com.bfd.ca.service.MeetingService;
+import com.bfd.ca.service.UserService;
 import com.bfd.ca.util.Constant;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
@@ -17,16 +18,17 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 @SuppressWarnings("all")
 public class MyHandler extends AbstractWebSocketHandler {
     @Resource
     private MeetingService meetingService;
+
+    @Resource
+    private UserService userService;
 
     private static final ArrayList<WebSocketSession> users = new ArrayList<>();
     //延迟消息队列，key为用户名
@@ -53,22 +55,27 @@ public class MyHandler extends AbstractWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
         Map<String, Object> attribute = session.getAttributes();
-        String username = (String) attribute.get(Constant.WEBSOCKET_USER_NAME);
-        if (username == null)
-            return;
         String msg = message.getPayload();
         JSONObject json = JSONObject.parseObject(msg);
         String type = json.getString("type");
         String meetingId = json.getString("mid");
-                //用于获取会议参与人
+        String uid = json.getString("uid");
+        HashMap<String, Object> condition = new HashMap<>();
+        condition.put("uid", uid);
+        User user = userService.getUser(condition);
+        if (user == null)
+            return;
+        String username = user.getName();
+        //用于获取会议参与人
         Meeting meeting = meetingService.getMeetingById(meetingId);
         if (meeting == null)
             return;
         List<String> include = new ArrayList<>();
         List<User> us = meeting.getPlist();
         for (User u : us) {
-            include.add(u.getName()+"$"+meetingId);
+            include.add(u.getName() + "$" + meetingId);
         }
+        include.add(username + "$" + meetingId);
         List<String> exclude = Lists.newArrayList(username);
         //发送推送
         sendMessageToUsers(message, include, exclude);
@@ -86,7 +93,7 @@ public class MyHandler extends AbstractWebSocketHandler {
         List<String> include = new ArrayList<>();
         List<User> us = meeting.getPlist();
         for (User u : us) {
-            include.add(u.getName()+"$"+meetingId);
+            include.add(u.getName() + "$" + meetingId);
         }
         List<String> exclude = Lists.newArrayList(username);
         ByteBuffer byteBuffer = message.getPayload();

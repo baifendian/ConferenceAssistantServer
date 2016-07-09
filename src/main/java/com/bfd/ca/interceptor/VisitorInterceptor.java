@@ -24,6 +24,9 @@ public class VisitorInterceptor extends HandlerInterceptorAdapter {
         Vistor vistor = new Vistor();
         String ip = request.getRemoteHost();
         String path = request.getServletPath();
+        if(path.startsWith("/static")){
+            return;
+        }
         User user = (User) request.getSession().getAttribute("user");
         vistor.setIp(ip);
         vistor.setPath(path);

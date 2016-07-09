@@ -24,7 +24,7 @@ public class TaskService {
 				for(Document doc:list){
 					Long st = doc.getLong("st");
 					String mid = doc.getString("mid");
-					System.out.println("st:"+st+" ct:"+currentTimestamp+" info:"+Long.parseLong(INFORM_TIME));
+					LogUtil.getLogger(getClass()).info("st:"+st+" ct:"+currentTimestamp+" info:"+Long.parseLong(INFORM_TIME));
 					if(((st - currentTimestamp) <= Long.parseLong(INFORM_TIME)) && ((st - currentTimestamp) >=0 )){
 						if(mid!= null && (!Constant.MEETING_MESSAGE_STATUS.containsKey(mid))){
 							try{
@@ -38,7 +38,7 @@ public class TaskService {
 								MailUtil mail = new MailUtil(doc.getString("title"),msg,sendToList);
 								mail.sendout();
 								Constant.MEETING_MESSAGE_STATUS.put(mid, String.valueOf(currTime));
-								System.out.println("提醒邮件已经发送成功");
+								LogUtil.getLogger(getClass()).info("提醒邮件已经发送成功");
 							}catch(Exception e){
 								e.printStackTrace();
 							}
@@ -51,8 +51,9 @@ public class TaskService {
 						}
 					}
 				}	
-				System.out.println("无符合条件数据");
+				LogUtil.getLogger(getClass()).info("无符合条件数据");
 			}catch(Exception e){
+				LogUtil.getLogger(getClass()).info(e);
 				e.printStackTrace();
 			}finally{
 				RUNNING_FLAG = false;
