@@ -29,9 +29,12 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setHeader("Access-Control-Allow-Origin", "*");
-//        String token = request.getHeader("token");
-        String token = request.getParameter("token");
+        String token = request.getHeader("token");
         String reqPath = request.getServletPath();
+        if(reqPath.startsWith("/static")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
         User u = null;
         if (token != null) {
             String userStr = RedisHelper.get(token);

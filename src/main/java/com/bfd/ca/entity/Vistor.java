@@ -7,7 +7,7 @@ package com.bfd.ca.entity;
 @SuppressWarnings("all")
 public class Vistor {
     private String ip;
-    private User user;
+    private String user;
     private String path;
     private long time;
 
@@ -19,11 +19,11 @@ public class Vistor {
         this.ip = ip;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by jinwei.li on 2016/6/27.
  */
 @SuppressWarnings("all")
-public class User implements Serializable {
+public class User {
     //用户id
     private String uid;
     //用户名
