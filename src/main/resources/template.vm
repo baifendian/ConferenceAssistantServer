@@ -1,0 +1,57 @@
+<div style="width: 800px;height: 60px;background-color: #2196f3;margin: 30px;line-height: 60px;font-family: 微软雅黑;">
+	<span>
+		<img src="http://7xlvm5.com2.z0.glb.qiniucdn.com/logo.png" style="width: 50px;vertical-align: middle;margin-left: 10px;"/>
+		<label style="margin-left:20px">百分点会议助手</label>
+	</span>
+</div>
+<div style="margin: 30px 30px;font-size: 18px;width: 600px;font-family: 微软雅黑;">
+	<div>
+		<div>
+			<h3>技术方案评审会</h3> 
+		</div>
+		<div>
+			<span></span>
+		</div>
+		<div></div>
+	</div>
+	<div >
+		<ul>
+			<li style="list-style-type: none;margin: 20px 0px;border-bottom: 1px solid #eaeaea;line-height: 37px;">
+				<span>发起：</span> <span>$!data.fromUserName</span>
+			</li>
+			<li style="list-style-type: none;margin: 20px 0px;border-bottom: 1px solid #eaeaea;line-height: 37px;">
+				<span>参与：</span> <span>$!data.toUserName</span>
+			</li>
+			<li style="list-style-type: none;margin: 20px 0px;border-bottom: 1px solid #eaeaea;line-height: 37px;">
+				<span>时间：</span> <span>$!data.startMeetingTime至$!data.endMeetingTime</span>
+			</li>
+			<li style="list-style-type: none;margin: 20px 0px;border-bottom: 1px solid #eaeaea;line-height: 37px;">
+				<span>地点：</span> <span>$!data.meetingAddr</span>
+			</li>
+		</ul>
+		<div>
+			<h3>详细内容</h3>
+			<ul>
+				<li style="list-style-type: none;margin: 20px 0px;border-bottom: 1px solid #eaeaea;line-height: 37px;">
+					<span>内容：</span> <span>$!data.content</span>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<h3>会议记录</h3>
+			<ul>
+				<li style="list-style-type: none;margin: 20px 0px;border-bottom: 1px solid #eaeaea;line-height: 37px;">
+					<span>内容：</span> 
+					<span>$!data.remark</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div style="width: 800px;height: 60px;background-color: #999;margin: 30px;line-height: 60px;font-family: 微软雅黑;">
+	<span>
+		<img src="http://7xlvm5.com2.z0.glb.qiniucdn.com/logo.png" style="width: 50px;vertical-align: middle;margin-left: 10px;"/>
+		<label style="margin-left:20px">百分点会议助手</label>
+		<label style="float: right;">Copyright©2016 Baifendian Corporation All Rights Reserved.</label>
+	</span>
+</div>
