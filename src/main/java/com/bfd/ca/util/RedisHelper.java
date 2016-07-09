@@ -113,6 +113,19 @@ public class RedisHelper {
     }
 
     /**
+     * 获取数据
+     *
+     * @param key
+     * @return
+     */
+    public static boolean isExist(String key) {
+        Jedis jedis = getJedis();
+        boolean value = jedis.exists(key);
+        release(jedis);
+        return value;
+    }
+
+    /**
      * 释放Jedis资源
      *
      * @param jedis
